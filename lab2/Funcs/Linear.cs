@@ -23,9 +23,11 @@ namespace lab2.Funcs
 		public override double Calculate (double x)
 			{
 			var len = ( _B - _A) * ( _inverse ? -1 : 1 );
-			var start = _inverse ? 1 : 0;
-			var end = _inverse ? 0 : 1;
-			return ( x < _A ) ? start : ( x > _B) ? end : ( x - _A) / len;
+			var max = _inverse ? 1 : 0;
+			var min = _inverse ? 0 : 1;
+			var start = _inverse ? _B : _A;
+			var end = _inverse ? _A : _B;
+			return ( x < _A ) ? max : ( x > _B) ? min : ( x - start) / len;
 			}
 
 		public static Linear operator - (Linear first)
