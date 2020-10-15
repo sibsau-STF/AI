@@ -124,7 +124,7 @@ namespace lab2
 			var notAllLabs = 1 - allLabs.Calculate(labs);
 			// не показал себя отлично
 			var notAdvanced = 1 - advancedKnowledge(visiting, labs, knowledge, read);
-			return AND(baseWork, Knowledge, OR(notAllLabs, notAdvanced));
+			return AND(baseWork, Knowledge, notAllLabs, notAdvanced);
         }
 
 		/// <summary>
