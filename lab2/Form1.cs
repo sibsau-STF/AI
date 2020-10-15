@@ -158,10 +158,10 @@ namespace lab2
             var fiveFunc = fiveMark.Modify(Function.ModifyMethod.Minimum, five);
 
 			// композиция функций оценок
-            var super = Function.Superposition(Function.CombinationType.MaxCombination, twoFunc, threeFunc, fourFunc, fiveFunc);
+            var super = Function.Superposition((Function.CombinationType)superposCombo.SelectedItem, twoFunc, threeFunc, fourFunc, fiveFunc);
 			
 			// скаляризация результата - нахождение максимума функции
-			var value = super.Scalarize(Function.ScalarMethod.MaxValue);
+			var value = super.Scalarize((Function.ScalarMethod)scalarCombo.SelectedItem);
 			
 			// возвращение оценки
 			return mark.Calculate(value);
@@ -180,7 +180,14 @@ namespace lab2
 		public Form1()
         {
             InitializeComponent();
-        }
+			superposCombo.Items.Add(Function.CombinationType.MaxCombination);
+			superposCombo.Items.Add(Function.CombinationType.SumCombination);
+			superposCombo.SelectedIndex = 0;
+
+			scalarCombo.Items.Add(Function.ScalarMethod.MaxValue);
+			scalarCombo.Items.Add(Function.ScalarMethod.WieghtCenter);
+			scalarCombo.SelectedIndex = 0;
+			}
 
         private void meetingBar_ValueChanged(object sender, EventArgs e)
         {

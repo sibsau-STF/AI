@@ -53,6 +53,10 @@
 			this.labsLabel = new System.Windows.Forms.Label();
 			this.knowLabel = new System.Windows.Forms.Label();
 			this.readLabel = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label15 = new System.Windows.Forms.Label();
+			this.superposCombo = new System.Windows.Forms.ComboBox();
+			this.scalarCombo = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.meetingBar)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.labNumeric)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.exersizesBar)).BeginInit();
@@ -293,11 +297,49 @@
 			this.readLabel.Size = new System.Drawing.Size(0, 17);
 			this.readLabel.TabIndex = 25;
 			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(559, 186);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(147, 17);
+			this.label6.TabIndex = 26;
+			this.label6.Text = "Метод суперпозиции";
+			// 
+			// label15
+			// 
+			this.label15.AutoSize = true;
+			this.label15.Location = new System.Drawing.Point(559, 241);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(147, 17);
+			this.label15.TabIndex = 27;
+			this.label15.Text = "Метод скаляризации";
+			// 
+			// superposCombo
+			// 
+			this.superposCombo.FormattingEnabled = true;
+			this.superposCombo.Location = new System.Drawing.Point(585, 206);
+			this.superposCombo.Name = "superposCombo";
+			this.superposCombo.Size = new System.Drawing.Size(121, 24);
+			this.superposCombo.TabIndex = 28;
+			// 
+			// scalarCombo
+			// 
+			this.scalarCombo.FormattingEnabled = true;
+			this.scalarCombo.Location = new System.Drawing.Point(585, 264);
+			this.scalarCombo.Name = "scalarCombo";
+			this.scalarCombo.Size = new System.Drawing.Size(121, 24);
+			this.scalarCombo.TabIndex = 29;
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(751, 353);
+			this.Controls.Add(this.scalarCombo);
+			this.Controls.Add(this.superposCombo);
+			this.Controls.Add(this.label15);
+			this.Controls.Add(this.label6);
 			this.Controls.Add(this.readLabel);
 			this.Controls.Add(this.knowLabel);
 			this.Controls.Add(this.labsLabel);
@@ -362,6 +404,10 @@
 		private System.Windows.Forms.Label labsLabel;
 		private System.Windows.Forms.Label knowLabel;
 		private System.Windows.Forms.Label readLabel;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Label label15;
+		private System.Windows.Forms.ComboBox superposCombo;
+		private System.Windows.Forms.ComboBox scalarCombo;
 		}
 	}
 
