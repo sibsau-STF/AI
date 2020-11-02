@@ -1,0 +1,153 @@
+/*YES button*/
+#flat_yes_button {
+    -fx-background-color:  #323232;
+    -fx-background-insets: 0,1,2,1;
+    -fx-background-radius: 1,1,1,1;
+    -fx-border-width: 2px;
+    -fx-border-color: #A8A8A8;
+    -fx-font-family: "Comic Sans MS";
+    -fx-text-fill: #A8A8A8;
+    -fx-font-size: 18px;
+}
+#flat_yes_button:hover {
+    -fx-background-color: #3F803F;
+    -fx-border-color: #2FC060;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
+}
+#flat_yes_button:pressed {
+    -fx-background-color: #2FC060;
+    -fx-border-color: #375842;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
+}
+
+/*NO button*/
+#flat_no_button {
+    -fx-background-color:  #323232;
+    -fx-background-insets: 0,1,2,1;
+    -fx-background-radius: 1,1,1,1;
+    -fx-border-width: 2px;
+    -fx-border-color: #A8A8A8;
+    -fx-font-family: "Comic Sans MS";
+    -fx-text-fill: #A8A8A8;
+    -fx-font-size: 18px;
+}
+#flat_no_button:hover {
+    -fx-background-color: #A04F4F;
+    -fx-border-color: #CF8080;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
+}
+#flat_no_button:pressed {
+    -fx-background-color: #CF8080;
+    -fx-border-color: #A04F4F;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
+}
+
+/*REPEAT button*/
+#flat_repeat_button {
+    -fx-background-color:  #323232;
+    -fx-background-image: url('/Drawable/repeat-icon-1.png');
+    -fx-background-size: 60px;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 5px;
+    -fx-border-width: 2px;
+    -fx-border-color: #AAAAAA;
+}
+#flat_repeat_button:hover {
+    -fx-background-image: url('/Drawable/repeat-icon-3.png');
+    -fx-border-color: #A8A8A8;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
+}
+#flat_repeat_button:pressed {
+    -fx-background-image: url('/Drawable/repeat-icon-2.png');
+    -fx-border-color: #FFFFFF;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
+}
+
+/*Add buttons*/
+#flat_add_button {
+    -fx-background-color:  #323232;
+    -fx-background-insets: 0,1,2,1;
+    -fx-background-radius: 1,1,1,1;
+    -fx-border-width: 2px;
+    -fx-border-color: #A8A8A8;
+    -fx-font-family: "Comic Sans MS";
+    -fx-text-fill: #A8A8A8;
+    -fx-font-size: 12px;
+}
+#flat_add_button:hover {
+    -fx-background-color: #A8A8A8;
+    -fx-border-color: #A8A8A8;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
+}
+#flat_add_button:pressed {
+    -fx-background-color: white;
+    -fx-border-color: #A8A8A8;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
+}
+
+#flat_text_label{
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
+}
+#main_text_label{
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 24px;
+    -fx-text-fill: white;
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
+    -fx-padding: 0 0 0 40px;
+}
+.text-area{
+    -fx-font-family: "Comic Sans MS";
+    text-area-background: #252525;
+    text-area-border: black;
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-text-alignment: left;
+}
+.text-area .content{
+    -fx-background-color: text-area-background;
+    -fx-border-color: text-area-border;
+}
+#flat_text_area{
+    -fx-font-family: "Comic Sans MS";
+    -fx-background-color: #252525;
+    -fx-border-color: black;
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+    -fx-text-alignment: left;
+}
+
+#tags_list_view {
+    -fx-background-color:  #323232;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 14px;
+}
+#flat_choice_box{
+    -fx-font-family: "Comic Sans MS";
+    -fx-background-color: #252525;
+    -fx-border-color: black;
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+    -fx-text-alignment: left;
+}
+#flat_choice_box .list-view{
+    -fx-background-color: #252525;
+}
+.flat_choice_box .list-view .list-cell {
+    -fx-padding: 4 0 4 5;
+
+    /* No alternate highlighting */
+    -fx-background-color: #252525;
+}
