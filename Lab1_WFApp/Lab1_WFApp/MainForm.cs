@@ -12,236 +12,194 @@ using System.Windows.Forms;
 
 namespace Lab1_WFApp
 {
-    public partial class MainForm : Form
-    {
-        private List<Rule> ruleList;
-        private List<Book> bookList;
-        private List<string> tagList;
+	public partial class MainForm : Form
+	{
+		event Action<Job> JobFound;
 
-        /*текущий стэк и текущее правило*/
-        protected List<string> ruleStack;
-        private Rule currentRule;
+		public List<Rule> Questions;
+		public List<Job> Jobs;
+		public List<Statement> Statements;
 
-        private int askCount = 0;
-        private bool bookFound = false;
+		public List<Job> RemainJobs;
+		private List<Rule> RemainQuestions;
+		private List<Statement> incomeStatements;
+		private Rule currentRule;
+		private Job foundJob;
 
-        internal List<Rule> RuleList { get => ruleList; set => ruleList = value; }
-        internal List<Book> BookList { get => bookList; set => bookList = value; }
-        public List<string> TagList { get => tagList; set => tagList = value; }
+		private int askCount = 0;
+		private bool jobFound = false;
 
-        public MainForm()
-        {
-            InitializeComponent();
-        }
+		public MainForm ()
+		{
+			InitializeComponent();
+		}
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            ruleStack = new List<string>();
-            loadRuleArrayList();
-            loadBookArrayList();
-            loadTagArrayList();
+		private void MainForm_Load (object sender, EventArgs e)
+		{
+			Statements = JSONClassConverter.GetStatements();
+			Questions = JSONClassConverter.GetRules(Statements);
+			Jobs = JSONClassConverter.GetJobs(Statements);
+			RemainJobs = Jobs;
+			RemainQuestions = Questions;
 
-            currentRule = RuleList[0];
-            askCount = 1;
-            ruleStack.Add("Начало");
+			JobFound += DisplayJob;
+			currentRule = RemainQuestions[0];
+			askCount = 1;
+			incomeStatements = new List<Statement>();
+			//incomeStatements.Add(new Statement(0, ""));
 
-            //установка текста в label
-            label.Text = currentRule.Ask;
-        }
+			//установка текста в label
+			label.Text = currentRule.Question;
+		}
+
+		private void DisplayJob (Job found)
+		{
+			if ( found != null )
+			{
+				label.Text = found.ToString() + "\r\nВас устраивает такой вариант?";
+				RemainJobs.Remove(found);
+				jobFound = true;
+			}
+			else
+			{
+				label.Text = "Извините, не получилось подобрать вам подходящий вариант :(\r\nПопробуйте еще раз";
+				yesButton.Visible = false;
+				noButton.Visible = false;
+			}
+		}
+
+		public void findNextQuestion ()
+		{
+			foundJob = Job.findJob(incomeStatements, RemainJobs);
+			if ( askCount <= 3 || foundJob == null )
+			{
+				//поиск подходящего правила по тегам
+				currentRule = RemainQuestions.Find(question => 
+						Statement.FindSameMeaning(question.Statements, incomeStatements.Last()) != null);
+
+				//если нашли правило, то пишем текст
+				if ( currentRule != null )
+				{
+					label.Text = currentRule.Question;
+				}
+				//иначе
+				else
+				{
+					//ищем все подходящие вопросы
+					foreach ( var statement in incomeStatements )
+					{
+						currentRule = RemainQuestions.Find(question => Statement.FindSameMeaning(question.Statements, statement) != null);
+						if ( currentRule != null )
+						{
+							label.Text = currentRule.Question;
+							break;
+						}
+					}
+					if ( currentRule == null )
+					{
+						label.Text = "Извините, не получилось подобрать вам подходящий вариант\r\nПопробуйте еще раз";
+						yesButton.Visible = false;
+						noButton.Visible = false;
+					}
+				}
+			}
+			else
+			{
+				
+				if ( foundJob != null )
+				{
+					label.Text = foundJob.ToString() + "\r\nВас устраивает такой вариант?";
+					simLabel.Text = foundJob.getSimilarDegree(incomeStatements).ToString();
+					requireList.Items.AddRange(foundJob.Statements.ToArray());
+					RemainJobs.Remove(foundJob);
+					jobFound = true;
+				}
+				else
+				{
+					label.Text = "Извините, не получилось подобрать вам подходящий вариант :(\r\nПопробуйте еще раз";
+					yesButton.Visible = false;
+					noButton.Visible = false;
+				}
+			}
+		}
 
 
-        /**
-        * Данный метод выполняет загрузку правил из JSON-файла
-        * в список ruleList
-        */
-        public void loadRuleArrayList()
-        {
-            try
-            {
-                using (StreamReader fs = new StreamReader(@"rules.json"))
-                {
-                    string json = fs.ReadToEnd();
-                    RuleList = JsonConvert.DeserializeObject<List<Rule>>(json);
-                }
-            }
-            catch (IOException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-        }
+		private void yesButton_Click (object sender, EventArgs e)
+		{
+			if ( !jobFound )
+			{
+				incomeStatements.Add(currentRule.Result);
+				charactersList.Items.Add(currentRule.Result);
+				RemainQuestions.Remove(currentRule);
+				findNextQuestion();
+				askCount++;
+			}
+			else
+			{
+				jobFound = false;
+				label.Text = "Работа найдена";
+				yesButton.Visible = false;
+				noButton.Visible = false;
+			}
+		}
 
-        /**
-         * Данный метод выполняет загрузку книг из JSON-файла
-         * в список bookList
-         */
-        public void loadBookArrayList()
-        {
-            try
-            {
-                using (StreamReader fs = new StreamReader(@"books.json"))
-                {
-                    string json = fs.ReadToEnd();
-                    BookList = JsonConvert.DeserializeObject<List<Book>>(json);
-                }
-            }
-            catch (IOException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-        }
-        /**
-         * Данный метод выполняет загрузку тегов из JSON-файла
-         * в список tagList
-         */
-        public void loadTagArrayList()
-        {
-            try
-            {
-                using (StreamReader fs = new StreamReader(@"tags.json"))
-                {
-                    string json = fs.ReadToEnd();
-                    TagList = JsonConvert.DeserializeObject<List<String>>(json);
-                }
-            }
-            catch (IOException e)
-            {
-                MessageBox.Show(e.Message);
-            }
-        }
+		private void noButton_Click (object sender, EventArgs e)
+		{
+			if ( !jobFound )
+			{
+				incomeStatements.Add(-currentRule.Result);
+				charactersList.Items.Add(-currentRule.Result);
+				RemainQuestions.Remove(currentRule);
+				//if ( currentRule.Result.Equals("Конец") )
+				//	Questions.Clear();
 
-        /**
-    * Данный метод производит поиск следующего правила.
-    * Сперва наиболее подходящего, потом любое возможное.
-    * Также выводит результат, если количество задаванных вопросов
-    * превышает 5
-    */
-        public void findNextRule()
-        {
+				findNextQuestion();
+				askCount++;
+			}
+			else
+			{
+				//var temp = incomeStatements.Last();
+				//incomeStatements.Remove(temp);
+				//incomeStatements.Add(-temp);
+				requireList.Items.Clear();
+				askCount--;
+				jobFound = false;
+				findNextQuestion();
+			}
+		}
 
-            //если количество вопросов меньше 5,
-            //то ищем следующий подходящий вопрос
-            if (askCount <= 5)
-            {
-                //поиск подходящего правила по тегам
-                currentRule = RuleList
-                    .Find(r => r.Antecedent.Contains(ruleStack[ruleStack.Count - 1]));
-                //если нашли правило, то пишем текст
-                if (currentRule != null)
-                {
-                    label.Text = currentRule.Ask;
-                }
-                //иначе
-                else
-                {
-                    //ищем все подходящие вопросы
-                    foreach (String tag in ruleStack)
-                    {
-                        currentRule = RuleList.Find(r=>r.Antecedent.Contains(tag));
-                        if (currentRule != null)
-                        {
-                            label.Text = currentRule.Ask;
-                            break;
-                        }
-                    }
-                    if (RuleList == null)
-                    {
-                        label.Text = "Извините, не получилось подобрать вам подходящий вариант :(\nПопробуйте еще раз";
-                        yesButton.Visible = false;
-                        noButton.Visible = false;
-                    }
-                }
-            }
-            else
-            {
-                Book book = Book.findBook(ruleStack, BookList);
-                if (book != null)
-                {
-                    label.Text = "Возможно вам понравится:\n" + book.Name +
-                            "\nАвтор: " + book.Author + "\nГод: " + book.Year + "\nВас устраивает такой вариант?:)";
-                    BookList.Remove(book);
-                    bookFound = true;
-                }
-                else
-                {
-                    label.Text = "Извините, не получилось подобрать вам подходящий вариант :(\nПопробуйте еще раз";
-                    yesButton.Visible=false;
-                    noButton.Visible=false;
-                }
-            }
-        }
+		private void repeatButton_Click (object sender, EventArgs e)
+		{
+			incomeStatements.Clear();
+			askCount = 1;
+			jobFound = false;
 
-        private void yesButton_Click(object sender, EventArgs e)
-        {
-            if (!bookFound)
-            {
-                ruleStack.Add(currentRule.Consequent);
+			RemainJobs = Jobs;
+			RemainQuestions = Questions;
 
-                if (currentRule.Consequent.Equals("Печатный вариант"))
-                    RuleList.Remove(RuleList.Find(rule=>rule.Consequent.Equals("Конец")));
-                RuleList.Remove(currentRule);
-                findNextRule();
-                askCount++;
-            }
-            else
-            {
-                //onClick_RepeatButton(actionEvent);
-                bookFound = false;
-                label.Text = "Рады были помочь!:)";
-                yesButton.Visible = false;
-                noButton.Visible = false;
-            }
-        }
+			charactersList.Items.Clear();
+			requireList.Items.Clear();
 
-        private void noButton_Click(object sender, EventArgs e)
-        {
-            if (!bookFound)
-            {
-                RuleList.Remove(currentRule);
-                if (currentRule.Consequent.Equals("Конец")) RuleList.Clear();
+			currentRule = RemainQuestions[0];
+			label.Text = currentRule.Question;
 
-                findNextRule();
-                askCount++;
-            }
-            else
-            {
-                askCount = 1;
-                bookFound = false;
-                findNextRule();
+			yesButton.Visible = true;
+			noButton.Visible = true;
+		}
 
-            }
-        }
+		private void addStatemtnt_Click (object sender, EventArgs e)
+		{
+			new NewStatement(this).Show();
+		}
 
-        private void repeatButton_Click(object sender, EventArgs e)
-        {
-            ruleStack.Clear();
-            askCount = 1;
-            bookFound = false;
+		private void addRuleButton_Click (object sender, EventArgs e)
+		{
+			new NewRule(this).Show();
+		}
 
-            loadRuleArrayList();
-            loadBookArrayList();
-            currentRule = RuleList[0];
-            label.Text = currentRule.Ask;
-
-            yesButton.Visible = true;
-            noButton.Visible = true;
-        }
-
-        private void addTagButton_Click(object sender, EventArgs e)
-        {
-            TagForm tagForm = new TagForm(this);
-            tagForm.Show();
-        }
-
-        private void addRuleButton_Click(object sender, EventArgs e)
-        {
-            RuleForm ruleForm = new RuleForm(this);
-            ruleForm.Show();
-        }
-
-        private void addBookButton_Click(object sender, EventArgs e)
-        {
-            BookForm bookForm = new BookForm(this);
-            bookForm.Show();
-        }
-    }
+		private void addJobButton_Click (object sender, EventArgs e)
+		{
+			new NewJob(this).Show();
+		}
+	}
 }
