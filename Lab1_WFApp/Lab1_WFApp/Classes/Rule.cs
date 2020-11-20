@@ -1,64 +1,118 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Lab1_WFApp
 {
-    class Rule
-    {
-        //условие
-        public List<string> Antecedent { get; set; }
-        //текст
-        public string Ask { get; set; }
-        //действие
-        public string Consequent { get; set; }
+	public class Rule
+	{
+		[JsonProperty("id")]
+		public int Id;
 
-        public Rule(List<string> Antecedent, string Ask, string Consequent)
-        {
-            this.Antecedent = Antecedent;
-            this.Ask = Ask;
-            this.Consequent = Consequent;
-        }
-        public Rule(Rule rule)
-        {
-            this.Antecedent = rule.Antecedent;
-            this.Ask = rule.Ask;
-            this.Consequent = rule.Consequent;
-        }
-        public Rule()
-        {
-        }
+		[JsonIgnore]
+		public List<Statement> Statements { get; set; }
+
+		[JsonIgnore]
+		public Statement Result { get; set; }
+
+		[JsonProperty("question")]
+		public string Question { get; set; }
+
+		[JsonProperty("conditions")]
+		List<string> statementRefs = new List<string>();
+
+		[JsonProperty("statement_id")]
+		int resultId;
+
+		[JsonIgnore]
+		List<int> statementIds = new List<int>();
+
+		[JsonIgnore]
+		List<bool> trueRef = new List<bool>();
 
 
-        public float getSimilarDegree(Rule rule)
-        {
-            float degree = 0;
+		private static int maxId = 0;
 
-            //получаем количество совпадений и вычисляем коэффициент
-            List<string> similars = new List<string>(rule.Antecedent);
-            //similars.retainAll(Antecedent);
-            var sim = from t in rule.Antecedent
-                      where Antecedent.Contains(t)
-                      select t;
-            degree = (float)similars.Count / (float)Antecedent.Count;
+		public Rule ()
+		{
+			Id = maxId;
+			maxId++;
+			Statements = new List<Statement>();
+		}
 
-            return degree;
-        }
-       
-        public bool isContained(List<Rule> rules)
-        {
-            bool flag = false;
+		[JsonConstructor]
+		public Rule (int id, List<string> conditions, string question, int statement_id)
+		{
+			Id = id;
+			maxId = Id > maxId ? Id : maxId;
+			statementRefs = conditions;
+			resultId = statement_id;
+			Question = question;
 
-            foreach (Rule r in rules)
-            {
-                if (getSimilarDegree(r) == 1 &&
-                   r.Ask.Equals(Ask) &&
-                   r.Consequent.Equals(Consequent))
-                {
-                    flag = true;
-                    break;
-                }
-            }
-            return flag;
-        }
-    }
+			var args = statementRefs
+				.Select(stRef => stRef.Split(' ')).ToList();
+			foreach ( var arg in args )
+			{
+				if ( arg.Length > 1 )
+				{
+					trueRef.Add(arg.First() != "not");
+					statementIds.Add(int.Parse(arg.Last()));
+				}
+				else
+				{
+					if ( arg[0] != "" )
+					{
+						trueRef.Add(true);
+						statementIds.Add(int.Parse(arg.Last()));
+					}
+				}
+			}
+		}
+
+		public Rule (List<Statement> conditions, string question, Statement result)
+		{
+			maxId++;
+			Id = maxId;
+
+			this.Statements = conditions;
+			this.Question = question;
+			this.Result = result;
+			statementRefs = conditions.Select(cond => cond.ToString()).ToList();
+		}
+
+		public Rule mapToStatements (List<Statement> allStatements)
+		{
+			var required = new List<int>(statementIds);
+
+			if ( !required.Contains(resultId) )
+				required.Add(resultId);
+
+			var passed = allStatements.FindAll(st => required.Contains(st.Id));
+			if ( passed.Count != required.Count )
+				throw new System.Exception("Not all statements provided");
+
+			var refs = trueRef.GetEnumerator();
+			Statements = required
+				.Select(required_id => passed.Find(p => p.Id == required_id)) // form ordered sequence
+				.Select(state => { refs.MoveNext(); return refs.Current ? state : -state; }) // apply refference
+				.ToList();
+			Result = passed.Find(p => p.Id == resultId);
+			return this;
+		}
+
+		public float getSimilarDegree (Rule rule)
+		{
+			var similars = Statements.Intersect(rule.Statements);
+			var misses = similars.Where(state =>
+				!Statement.SameMeaning(state,
+					Statement.FindSame(Statements, state)));
+			return (float)( similars.Count() - misses.Count() ) / Statements.Count;
+		}
+
+		public override string ToString ()
+		{
+			return Question;
+		}
+
+	}
 }
