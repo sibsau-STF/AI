@@ -13,15 +13,13 @@ namespace Lab1_WFApp
 		{
 			InitializeComponent();
 			main = mainForm;
-			var statements = main.Statements.ToArray();
 
-			requirementList.Items.AddRange(statements);
-			resultBox.Items.AddRange(statements);
+			resultBox.Items.AddRange(main.Statements.ToArray());
 		}
 
 		private void addButton_Click (object sender, EventArgs e)
 		{
-			var conditions = requirementList.CheckedItems.Cast<Statement>().ToList();
+			var conditions = requirementList.Items.Cast<Statement>().ToList();
 
 			if ( questionBox.Text == "" ||
 			  conditions.Count == 0 ||
@@ -30,7 +28,7 @@ namespace Lab1_WFApp
 				MessageBox.Show("Поля не могут быть пустыми!");
 				return;
 			}
-			Rule nRule = new Rule(requirementList.CheckedItems.Cast<Statement>().ToList(),
+			Rule nRule = new Rule(conditions,
 							questionBox.Text,
 							(Statement)resultBox.SelectedItem);
 			if ( main.Questions.Contains(nRule) )
@@ -50,6 +48,24 @@ namespace Lab1_WFApp
 		private void cancelButton_Click (object sender, EventArgs e)
 		{
 			this.Close();
+		}
+
+		private void button1_Click (object sender, EventArgs e)
+		{
+			var stateForm = new AttachStatement(main.Statements);
+			stateForm.ShowDialog();
+			if ( stateForm.Result != null )
+			{
+				var newRule = stateForm.Result;
+				requirementList.Items.Add(newRule);
+			}
+		}
+
+		private void button2_Click (object sender, EventArgs e)
+		{
+			Statement rule = (Statement)requirementList.SelectedItem;
+			if ( rule != null )
+				requirementList.Items.Remove(rule);
 		}
 	}
 }
