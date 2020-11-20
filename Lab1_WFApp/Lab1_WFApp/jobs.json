@@ -68,7 +68,7 @@
   {
     "id": 12,
     "name": "Механик-технолог",
-    "statement_ids": [11, 14],
+    "statement_ids": [11, 5],
     "income": 76000
   },
   {

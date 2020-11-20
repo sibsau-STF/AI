@@ -49,7 +49,7 @@
 			// 
 			// nameBox
 			// 
-			this.nameBox.Font = new System.Drawing.Font("Microsoft Himalaya", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.nameBox.Font = new System.Drawing.Font("Monotype Corsiva", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.nameBox.Location = new System.Drawing.Point(24, 29);
 			this.nameBox.Name = "nameBox";
 			this.nameBox.Size = new System.Drawing.Size(274, 29);
@@ -80,7 +80,7 @@
 			// 
 			// incomeBox
 			// 
-			this.incomeBox.Font = new System.Drawing.Font("Microsoft Himalaya", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.incomeBox.Font = new System.Drawing.Font("Monotype Corsiva", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.incomeBox.Location = new System.Drawing.Point(24, 81);
 			this.incomeBox.Name = "incomeBox";
 			this.incomeBox.Size = new System.Drawing.Size(274, 29);

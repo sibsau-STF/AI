@@ -77,7 +77,11 @@ namespace Lab1_WFApp
 			this.Statements = conditions;
 			this.Question = question;
 			this.Result = result;
-			statementRefs = conditions.Select(cond => cond.ToString()).ToList();
+
+			resultId = result.Id;
+			statementRefs = conditions
+				.Select(cond => cond.Negative ? $"not {cond.Id}" : $"{cond.Id}")
+				.ToList();
 		}
 
 		public Rule mapToStatements (List<Statement> allStatements)

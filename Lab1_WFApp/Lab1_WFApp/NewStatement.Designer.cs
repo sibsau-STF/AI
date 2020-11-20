@@ -45,7 +45,7 @@
 			// 
 			// richTextBox1
 			// 
-			this.richTextBox1.Font = new System.Drawing.Font("Microsoft Himalaya", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.richTextBox1.Font = new System.Drawing.Font("Monotype Corsiva", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.richTextBox1.Location = new System.Drawing.Point(45, 71);
 			this.richTextBox1.Name = "richTextBox1";
 			this.richTextBox1.Size = new System.Drawing.Size(274, 52);

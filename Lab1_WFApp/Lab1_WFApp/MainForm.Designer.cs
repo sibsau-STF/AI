@@ -43,10 +43,10 @@
 			// addStatementButton
 			// 
 			this.addStatementButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.addStatementButton.Location = new System.Drawing.Point(592, 322);
+			this.addStatementButton.Location = new System.Drawing.Point(577, 322);
 			this.addStatementButton.Margin = new System.Windows.Forms.Padding(3, 3, 320, 3);
 			this.addStatementButton.Name = "addStatementButton";
-			this.addStatementButton.Size = new System.Drawing.Size(183, 30);
+			this.addStatementButton.Size = new System.Drawing.Size(198, 30);
 			this.addStatementButton.TabIndex = 0;
 			this.addStatementButton.Text = "Добавить предпочтение";
 			this.addStatementButton.UseVisualStyleBackColor = true;
@@ -55,9 +55,9 @@
 			// addRuleButton
 			// 
 			this.addRuleButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.addRuleButton.Location = new System.Drawing.Point(592, 367);
+			this.addRuleButton.Location = new System.Drawing.Point(577, 367);
 			this.addRuleButton.Name = "addRuleButton";
-			this.addRuleButton.Size = new System.Drawing.Size(183, 30);
+			this.addRuleButton.Size = new System.Drawing.Size(198, 30);
 			this.addRuleButton.TabIndex = 1;
 			this.addRuleButton.Text = "Добавить правило";
 			this.addRuleButton.UseVisualStyleBackColor = true;
@@ -66,10 +66,10 @@
 			// addBookButton
 			// 
 			this.addBookButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-			this.addBookButton.Location = new System.Drawing.Point(592, 412);
+			this.addBookButton.Location = new System.Drawing.Point(577, 412);
 			this.addBookButton.Margin = new System.Windows.Forms.Padding(3, 3, 30, 3);
 			this.addBookButton.Name = "addBookButton";
-			this.addBookButton.Size = new System.Drawing.Size(183, 30);
+			this.addBookButton.Size = new System.Drawing.Size(198, 30);
 			this.addBookButton.TabIndex = 2;
 			this.addBookButton.Text = "Добавить работу";
 			this.addBookButton.UseVisualStyleBackColor = true;
@@ -78,7 +78,7 @@
 			// label
 			// 
 			this.label.BackColor = System.Drawing.Color.Transparent;
-			this.label.Font = new System.Drawing.Font("Papyrus", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label.Font = new System.Drawing.Font("Monotype Corsiva", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label.Location = new System.Drawing.Point(75, 33);
 			this.label.Name = "label";
 			this.label.Size = new System.Drawing.Size(650, 96);
@@ -138,7 +138,7 @@
 			// 
 			this.requireList.FormattingEnabled = true;
 			this.requireList.ItemHeight = 16;
-			this.requireList.Location = new System.Drawing.Point(417, 242);
+			this.requireList.Location = new System.Drawing.Point(376, 242);
 			this.requireList.Name = "requireList";
 			this.requireList.Size = new System.Drawing.Size(169, 196);
 			this.requireList.TabIndex = 8;
@@ -146,7 +146,7 @@
 			// simLabel
 			// 
 			this.simLabel.AutoSize = true;
-			this.simLabel.Location = new System.Drawing.Point(417, 219);
+			this.simLabel.Location = new System.Drawing.Point(376, 219);
 			this.simLabel.Name = "simLabel";
 			this.simLabel.Size = new System.Drawing.Size(65, 17);
 			this.simLabel.TabIndex = 9;
@@ -171,6 +171,7 @@
 			this.Name = "MainForm";
 			this.Padding = new System.Windows.Forms.Padding(30, 0, 30, 0);
 			this.Text = "Main Form";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.ResumeLayout(false);
 			this.PerformLayout();

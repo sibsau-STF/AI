@@ -39,8 +39,9 @@ namespace Lab1_WFApp
 			Statements = JSONClassConverter.GetStatements();
 			Questions = JSONClassConverter.GetRules(Statements);
 			Jobs = JSONClassConverter.GetJobs(Statements);
-			RemainJobs = Jobs;
-			RemainQuestions = Questions;
+
+			RemainJobs = new List<Job>(Jobs);
+			RemainQuestions = new List<Rule>(Questions);
 
 			JobFound += DisplayJob;
 			currentRule = RemainQuestions[0];
@@ -71,7 +72,7 @@ namespace Lab1_WFApp
 		public void findNextQuestion ()
 		{
 			foundJob = Job.findJob(incomeStatements, RemainJobs);
-			if ( askCount <= 3 || foundJob == null )
+			if ( askCount < 3 || foundJob == null )
 			{
 				//поиск подходящего правила по тегам
 				currentRule = RemainQuestions.Find(question => 
@@ -171,13 +172,14 @@ namespace Lab1_WFApp
 		private void repeatButton_Click (object sender, EventArgs e)
 		{
 			incomeStatements.Clear();
+			charactersList.Items.Clear();
+
 			askCount = 1;
 			jobFound = false;
 
-			RemainJobs = Jobs;
-			RemainQuestions = Questions;
+			RemainJobs = new List<Job>(Jobs);
+			RemainQuestions = new List<Rule>(Questions);
 
-			charactersList.Items.Clear();
 			requireList.Items.Clear();
 
 			currentRule = RemainQuestions[0];
@@ -200,6 +202,13 @@ namespace Lab1_WFApp
 		private void addJobButton_Click (object sender, EventArgs e)
 		{
 			new NewJob(this).Show();
+		}
+
+		private void MainForm_FormClosing (object sender, FormClosingEventArgs e)
+		{
+			JSONClassConverter.WriteJobs(Jobs);
+			JSONClassConverter.WriteRules(Questions);
+			JSONClassConverter.WriteStatements(Statements);
 		}
 	}
 }
