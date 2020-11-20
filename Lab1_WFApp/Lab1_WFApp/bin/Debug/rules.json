@@ -1,132 +1,186 @@
 [
   {
     "id": 1,
+    "conditions": [
+      ""
+    ],
     "statement_id": 1,
-    "question": "Хочешь учиться?",
-    "conditions": [""]
+    "question": "Хочешь учиться?"
   },
   {
     "id": 2,
+    "conditions": [
+      "not 1"
+    ],
     "statement_id": 2,
-    "question": "Хочешь получать деньги за рекламу?",
-    "conditions": ["not 1"]
+    "question": "Хочешь получать деньги за рекламу?"
   },
   {
     "id": 3,
+    "conditions": [
+      "not 1",
+      "not 2"
+    ],
     "statement_id": 3,
-    "question": "Ты хочешь работать руками?",
-    "conditions": ["not 1", "not 2"]
+    "question": "Ты хочешь работать руками?"
   },
   {
     "id": 4,
+    "conditions": [
+      "1",
+      "not 6"
+    ],
     "statement_id": 4,
-    "question": "Хочешь преподавать?",
-    "conditions": ["1", "not 6"]
+    "question": "Хочешь преподавать?"
   },
   {
     "id": 5,
+    "conditions": [
+      "1",
+      "not 7"
+    ],
     "statement_id": 5,
-    "question": "Ты любишь изучать технологии или естественные науки?",
-    "conditions": ["1", "not 7"]
+    "question": "Ты любишь изучать технологии или естественные науки?"
   },
   {
     "id": 6,
+    "conditions": [
+      "1",
+      "not 4"
+    ],
     "statement_id": 6,
-    "question": "Ты креативный?",
-    "conditions": ["1", "not 4"]
+    "question": "Ты креативный?"
   },
   {
     "id": 7,
+    "conditions": [
+      "1",
+      "not 5"
+    ],
     "statement_id": 7,
-    "question": "Так получается ты гуманитарий?",
-    "conditions": ["1", "not 5"]
+    "question": "Так получается ты гуманитарий?"
   },
-
   {
     "id": 8,
+    "conditions": [
+      "one 7"
+    ],
     "statement_id": 8,
-    "question": "Нравится история?",
-    "conditions": ["one 7"]
+    "question": "Нравится история?"
   },
   {
     "id": 9,
+    "conditions": [
+      "one 7"
+    ],
     "statement_id": 9,
-    "question": "Хочется заниматься экономикой?",
-    "conditions": ["one 7"]
+    "question": "Хочется заниматься экономикой?"
   },
   {
     "id": 10,
+    "conditions": [
+      "one 7"
+    ],
     "statement_id": 10,
-    "question": "Нравятся различные языки?",
-    "conditions": ["one 7"]
+    "question": "Нравятся различные языки?"
   },
-
   {
     "id": 11,
+    "conditions": [
+      "one 5"
+    ],
     "statement_id": 11,
-    "question": "Нравится техника?",
-    "conditions": ["one 5"]
+    "question": "Нравится техника?"
   },
   {
     "id": 12,
+    "conditions": [
+      "one 5"
+    ],
     "statement_id": 12,
-    "question": "Хочется познать загадки мироздания?",
-    "conditions": ["one 5"]
+    "question": "Хочется познать загадки мироздания?"
   },
-
   {
     "id": 13,
+    "conditions": [
+      "one 6"
+    ],
     "statement_id": 13,
-    "question": "Нравится изобразительное творчество?",
-    "conditions": ["one 6"]
+    "question": "Нравится изобразительное творчество?"
   },
   {
     "id": 14,
+    "conditions": [
+      "one 6"
+    ],
     "statement_id": 14,
-    "question": "Нравятся фильмы/мультфильмы?",
-    "conditions": ["one 6"]
+    "question": "Нравятся фильмы/мультфильмы?"
   },
   {
     "id": 15,
+    "conditions": [
+      "one 6"
+    ],
     "statement_id": 15,
-    "question": "Увлечен музыкой?",
-    "conditions": ["one 6"]
+    "question": "Увлечен музыкой?"
   },
   {
     "id": 16,
+    "conditions": [
+      "one 6"
+    ],
     "statement_id": 16,
-    "question": "Хочется писать сюжеты?",
-    "conditions": ["one 6"]
+    "question": "Хочется писать сюжеты?"
   },
-
   {
     "id": 17,
+    "conditions": [
+      "4",
+      "6"
+    ],
     "statement_id": 17,
-    "question": "Любишь играть в игры?",
-    "conditions": ["4", "6"]
+    "question": "Любишь играть в игры?"
   },
   {
     "id": 18,
+    "conditions": [
+      "11"
+    ],
     "statement_id": 18,
-    "question": "Нравятся информационные технологии?",
-    "conditions": ["11"]
+    "question": "Нравятся информационные технологии?"
   },
   {
     "id": 19,
+    "conditions": [
+      "11"
+    ],
     "statement_id": 19,
-    "question": "Нравятся конструкторы?",
-    "conditions": ["11"]
+    "question": "Нравятся конструкторы?"
   },
   {
     "id": 20,
+    "conditions": [
+      "12"
+    ],
     "statement_id": 20,
-    "question": "Хочется изучать физику?",
-    "conditions": ["12"]
+    "question": "Хочется изучать физику?"
   },
   {
     "id": 21,
+    "conditions": [
+      "9"
+    ],
     "statement_id": 21,
-    "question": "Хочется работать с рынком?",
-    "conditions": ["9"]
+    "question": "Хочется работать с рынком?"
+  },
+  {
+    "id": 22,
+    "conditions": [
+      "20",
+      "12",
+      "not 16"
+    ],
+    "statement_id": 22,
+    "question": "Любишь космос?"
   }
 ]
