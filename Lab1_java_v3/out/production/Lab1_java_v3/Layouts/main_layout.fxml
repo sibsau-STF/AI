@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<FlowPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #323232;" stylesheets="@../Style/mycss.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
+   <Button id="flat_add_button" fx:id="add_antecedent_button" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClick_AddAntecedentButton" prefWidth="160.0" text="Добавить тег">
+      <FlowPane.margin>
+         <Insets left="20.0" right="20.0" top="10.0" />
+      </FlowPane.margin>
+   </Button>
+   <Button id="flat_add_button" fx:id="add_rule_button" mnemonicParsing="false" onAction="#onClick_AddRuleButton" prefWidth="160.0" text="Добавить правило">
+      <FlowPane.margin>
+         <Insets left="20.0" right="20.0" top="10.0" />
+      </FlowPane.margin>
+   </Button>
+   <Button id="flat_add_button" fx:id="add_consequent_button" layoutX="230.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClick_AddConsequentButton" prefWidth="160.0" text="Добавить книгу">
+      <FlowPane.margin>
+         <Insets left="20.0" right="20.0" top="10.0" />
+      </FlowPane.margin>
+   </Button>
+
+   <Label id="main_text_label" fx:id="flat_label" prefHeight="195.0" prefWidth="500.0" text="Вопросики" textAlignment="CENTER">
+      <font>
+         <Font name="Comic Sans MS" size="24.0" />
+      </font>
+      <FlowPane.margin>
+         <Insets bottom="20.0" left="50.0" right="50.0" />
+      </FlowPane.margin>
+   </Label>
+   <Button id="flat_no_button" fx:id="no_button" mnemonicParsing="false" onAction="#onClick_NoButton" prefHeight="60.0" prefWidth="100.0" text="Нет">
+      <FlowPane.margin>
+         <Insets bottom="10.0" left="100.0" right="100.0" />
+      </FlowPane.margin>
+   </Button>
+   <Button id="flat_yes_button" fx:id="yes_button" layoutX="10.0" layoutY="256.0" mnemonicParsing="false" onAction="#onClick_YesButton" prefHeight="60.0" prefWidth="100.0" text="Да">
+      <FlowPane.margin>
+         <Insets bottom="10.0" left="100.0" right="100.0" />
+      </FlowPane.margin>
+   </Button>
+   <Button id="flat_repeat_button" fx:id="repeat_button" mnemonicParsing="false" onAction="#onClick_RepeatButton" prefHeight="60.0" prefWidth="60.0">
+      <padding>
+         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </padding>
+      <FlowPane.margin>
+         <Insets left="270.0" right="270.0" top="20.0" />
+      </FlowPane.margin>
+   </Button>
+</FlowPane>
