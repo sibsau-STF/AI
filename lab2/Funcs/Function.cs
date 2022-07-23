@@ -56,11 +56,10 @@ namespace lab2.Funcs
             return method switch
             {
                 Combination.Max => new Function("SuperPosition",
-                    x => funcs.Select(func => func.Calculate(x)).Max(),
+                    x => funcs.Max(f => f.Calculate(x)),
                     from, to),
                 Combination.Sum => new Function("SuperPosition",
-                    funcs.Aggregate<Function, Func<double, double>>(z => 0,
-                        (acc, func) => y => acc(y) + func.Calculate(y)),
+                    x => funcs.Sum(f => f.Calculate(x)),
                     from, to),
                 _ => throw new ArgumentOutOfRangeException(nameof(method), method, null)
             };
