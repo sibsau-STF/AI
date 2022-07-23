@@ -152,16 +152,16 @@ namespace lab2
             var five = toFiveMark(visiting, tasks, labs, knowledge, canRead);
 
 			// модификация функций принадлежности для оценок по методу минимума
-            var twoFunc = twoMark.Modify(Function.ModifyMethod.Minimum, two);
-            var threeFunc = threeMark.Modify(Function.ModifyMethod.Minimum, three);
-            var fourFunc = fourMark.Modify(Function.ModifyMethod.Minimum, four);
-            var fiveFunc = fiveMark.Modify(Function.ModifyMethod.Minimum, five);
+            var twoFunc = twoMark.Modify(Function.Modification.Min, two);
+            var threeFunc = threeMark.Modify(Function.Modification.Min, three);
+            var fourFunc = fourMark.Modify(Function.Modification.Min, four);
+            var fiveFunc = fiveMark.Modify(Function.Modification.Min, five);
 
 			// композиция функций оценок
-            var super = Function.Superposition((Function.CombinationType)superposCombo.SelectedItem, twoFunc, threeFunc, fourFunc, fiveFunc);
+            var super = Function.Superposition((Function.Combination)superposCombo.SelectedItem, twoFunc, threeFunc, fourFunc, fiveFunc);
 			
 			// скаляризация результата - нахождение максимума функции
-			var value = super.Scalarize((Function.ScalarMethod)scalarCombo.SelectedItem);
+			var value = super.Scalarize((Function.Scalarization)scalarCombo.SelectedItem);
 			
 			// возвращение оценки
 			return mark.Calculate(value);
@@ -180,12 +180,12 @@ namespace lab2
 		public Form1()
         {
             InitializeComponent();
-			superposCombo.Items.Add(Function.CombinationType.MaxCombination);
-			superposCombo.Items.Add(Function.CombinationType.SumCombination);
+			superposCombo.Items.Add(Function.Combination.Max);
+			superposCombo.Items.Add(Function.Combination.Sum);
 			superposCombo.SelectedIndex = 0;
 
-			scalarCombo.Items.Add(Function.ScalarMethod.MaxValue);
-			scalarCombo.Items.Add(Function.ScalarMethod.WieghtCenter);
+			scalarCombo.Items.Add(Function.Scalarization.MaxValue);
+			scalarCombo.Items.Add(Function.Scalarization.WieghtCenter);
 			scalarCombo.SelectedIndex = 0;
 			}
 

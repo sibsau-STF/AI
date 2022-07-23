@@ -9,29 +9,29 @@ namespace lab2.Funcs
 	{
 	public class Logistic: Function
 		{
-		private double _Mu;
-		private double _S;
-		private bool _inverse;
+		private readonly double _mu;
+		private readonly double _s;
+		private readonly bool _inverse;
 
-		public Logistic (string name, double mu, double s, double Dfrom, double Dto, bool inverse) : base(name, x => 0, Dfrom, Dto)
+		public Logistic (string name, double mu, double s, double x1, double x2, bool inverse) : base(name, x => 0, x1, x2)
 			{
-			_Mu = mu;
-			_S = s;
+			_mu = mu;
+			_s = s;
 			_inverse = inverse;
-			_func = this.Calculate;
+			Func = this.Calculate;
 			}
 
 		public override double Calculate (double x)
 			{
 			double sign = _inverse ? -1 : 1;
-			return 1 / ( 1 + Math.Exp(-( x - _Mu ) * sign / _S));
+			return 1 / ( 1 + Math.Exp(-( x - _mu ) * sign / _s));
 			}
 
 		public static Logistic operator -(Logistic first)
 			{
 			return new Logistic("не " + first.Name,
-							first._Mu,
-							first._S,
+							first._mu,
+							first._s,
 							first.From,
 							first.To,
 							!first._inverse);

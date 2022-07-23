@@ -8,33 +8,33 @@ namespace lab2.Funcs
 	{
 	public class Linear : Function
 		{
-		private double _A;
-		private double _B;
-		private bool _inverse;
+		private readonly double _a;
+		private readonly double _b;
+		private readonly bool _inverse;
 
-		public Linear (string name, double a, double b, double Dfrom, double Dto, bool inverse) : base(name, x => 0, Dfrom, Dto)
+		public Linear (string name, double a, double b, double x1, double x2, bool inverse) : base(name, x => 0, x1, x2)
 			{
-			_A = a;
-			_B = b;
+			_a = a;
+			_b = b;
 			_inverse = inverse;
-			_func = this.Calculate;
+			Func = this.Calculate;
 			}
 
 		public override double Calculate (double x)
 			{
-			var len = ( _B - _A) * ( _inverse ? -1 : 1 );
-			var max = _inverse ? 1 : 0;
-			var min = _inverse ? 0 : 1;
-			var start = _inverse ? _B : _A;
-			var end = _inverse ? _A : _B;
-			return ( x < _A ) ? max : ( x > _B) ? min : ( x - start) / len;
+			double len = ( _b - _a) * ( _inverse ? -1 : 1 );
+			int max = _inverse ? 1 : 0;
+			int min = _inverse ? 0 : 1;
+			double start = _inverse ? _b : _a;
+			double end = _inverse ? _a : _b;
+			return ( x < _a ) ? max : ( x > _b) ? min : ( x - start) / len;
 			}
 
 		public static Linear operator - (Linear first)
 			{
 			return new Linear("не " + first.Name,
-							first._A,
-							first._B,
+							first._a,
+							first._b,
 							first.From,
 							first.To,
 							!first._inverse);
