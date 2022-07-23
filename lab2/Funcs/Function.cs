@@ -5,155 +5,158 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace lab2.Funcs
-	{
-	public class Function
-		{
-		public enum Modification
-			{
-			Min = 0,
-			Production = 1
-			}
+{
+    public class Function
+    {
+        public enum Modification
+        {
+            Min = 0,
+            Production = 1
+        }
 
-		public enum Combination
-			{
-			Max = 0,
-			Sum = 1
-			}
+        public enum Combination
+        {
+            Max = 0,
+            Sum = 1
+        }
 
-		public enum Scalarization
-			{
-			WieghtCenter = 0,
-			MaxValue = 1
-			}
+        public enum Scalarization
+        {
+            WieghtCenter = 0,
+            MaxValue = 1
+        }
 
-		protected Func<double, double> Func;
-		protected double From { get; set; }
-		protected double To { get; set; }
-		private double ScalarValue { get; set; }
-		public string Name { get; protected set; }
+        protected Func<double, double> Func;
+        protected double From { get; set; }
+        protected double To { get; set; }
+        private double ScalarValue { get; set; }
+        public string Name { get; protected set; }
 
-		public Function (string name, Func<double, double> func, double from, double to)
-			{
-			Func = func;
-			From = from;
-			To = to;
-			Name = name;
-			}
+        public Function(string name, Func<double, double> func, double from, double to)
+        {
+            Func = func;
+            From = from;
+            To = to;
+            Name = name;
+        }
 
-		public virtual double Calculate (double x) => Func(x);
+        public virtual double Calculate(double x) => Func(x);
 
-		static double Normalize (double x)
-			{
-			if ( x < 0 )
-				return 0;
-			if ( x > 1 )
-				return 1;
-			return x;
-			}
+        static double Normalize(double x)
+        {
+            if (x < 0)
+                return 0;
+            if (x > 1)
+                return 1;
+            return x;
+        }
 
-		public static Function Superposition (Combination method, params Function[] funcs)
-			{
-			var from = funcs.Select(func => func.From).Min();
-			var to = funcs.Select(func => func.To).Max();
-			Func<double, double> super;
-			switch ( method )
-				{
-				case Combination.Max:
-				super = x => funcs.Select(func => func.Calculate(x)).Max();
-				break;
-				case Combination.Sum:
-				super = funcs.Aggregate<Function, Func<double, double>>(z => 0,
-					(acc, func) => y => acc(y) + func.Calculate(y));
-				break;
-				default:
-				return null;
-				}
-			return new Function("SuperPosition", super, from, to);
-			}
+        public static Function Superposition(Combination method, params Function[] funcs)
+        {
+            var from = funcs.Select(func => func.From).Min();
+            var to = funcs.Select(func => func.To).Max();
+            Func<double, double> super;
+            switch (method)
+            {
+                case Combination.Max:
+                    super = x => funcs.Select(func => func.Calculate(x)).Max();
+                    break;
+                case Combination.Sum:
+                    super = funcs.Aggregate<Function, Func<double, double>>(z => 0,
+                        (acc, func) => y => acc(y) + func.Calculate(y));
+                    break;
+                default:
+                    return null;
+            }
 
-		public Function Modify (Modification method, double value)
-			{
-			switch ( method )
-				{
-				case Modification.Min:
-				return new Function(Name, x =>
-				{
-					var calc = Func(x);
-					return calc > value ? value : calc;
-				}, From, To);
+            return new Function("SuperPosition", super, from, to);
+        }
 
-				case Modification.Production:
-				return new Function(Name, x => value * Func(x), From, To);
-				default:
-				return null;
-				}
-			}
+        public Function Modify(Modification method, double value)
+        {
+            switch (method)
+            {
+                case Modification.Min:
+                    return new Function(Name, x =>
+                    {
+                        var calc = Func(x);
+                        return calc > value ? value : calc;
+                    }, From, To);
 
-		public double Scalarize (Scalarization method)
-			{
-			switch ( method )
-				{
-				case Scalarization.WieghtCenter:
-				ScalarValue = GetWeightCenter();
-				break;
-				case Scalarization.MaxValue:
-				ScalarValue = GetMaxValue();
-				break;
-				default:
-				break;
-				}
-			return ScalarValue;
-			}
+                case Modification.Production:
+                    return new Function(Name, x => value * Func(x), From, To);
+                default:
+                    return null;
+            }
+        }
 
-		private double GetWeightCenter ()
-			{
-			var n = 1000;
-			var len = To - From;
-			var dx = len / n;
-			double sum1 = 0;
-			double sum2 = 0;
+        public double Scalarize(Scalarization method)
+        {
+            switch (method)
+            {
+                case Scalarization.WieghtCenter:
+                    ScalarValue = GetWeightCenter();
+                    break;
+                case Scalarization.MaxValue:
+                    ScalarValue = GetMaxValue();
+                    break;
+                default:
+                    break;
+            }
 
-			for ( double x = From; x < To; x += dx )
-				{
-				var value = Func(x);
-				sum1 += value;
-				sum2 += value * x;
-				}
-			return sum2 / sum1;
-			}
+            return ScalarValue;
+        }
 
-		private double GetMaxValue ()
-			{
-			var n = 1000;
-			var len = To - From;
-			var dx = len / n;
-			double maxValue = Func(From);
-			double xMax = From;
-			for ( double x = From; x < To; x += dx )
-				{
-				var value = Func(x);
-				if ( maxValue < value )
-					{
-					maxValue = value;
-					xMax = x;
-					}
-				}
-			return xMax;
-			}
+        private double GetWeightCenter()
+        {
+            var n = 1000;
+            var len = To - From;
+            var dx = len / n;
+            double sum1 = 0;
+            double sum2 = 0;
 
-		public static Function operator+(Function first, Function second)
-			{
-			var from = Math.Min(first.From, second.From);
-			var to = Math.Max(first.To, second.To);
-			return new Function($"({first.Name} или {second.Name})", (x) => Math.Max(first.Func(x), second.Func(x)), from, to);
-			}
+            for (double x = From; x < To; x += dx)
+            {
+                var value = Func(x);
+                sum1 += value;
+                sum2 += value * x;
+            }
 
-		public static Function operator*(Function first, Function second)
-			{
-			var from = Math.Min(first.From, second.From);
-			var to = Math.Max(first.To, second.To);
-			return new Function($"({first.Name} и {second.Name})", (x) => Math.Min(first.Func(x), second.Func(x)), from, to);
-			}
+            return sum2 / sum1;
+        }
 
-		}
-	}
+        private double GetMaxValue()
+        {
+            var n = 1000;
+            var len = To - From;
+            var dx = len / n;
+            double maxValue = Func(From);
+            double xMax = From;
+            for (double x = From; x < To; x += dx)
+            {
+                var value = Func(x);
+                if (maxValue < value)
+                {
+                    maxValue = value;
+                    xMax = x;
+                }
+            }
+
+            return xMax;
+        }
+
+        public static Function operator +(Function first, Function second)
+        {
+            var from = Math.Min(first.From, second.From);
+            var to = Math.Max(first.To, second.To);
+            return new Function($"({first.Name} или {second.Name})", (x) => Math.Max(first.Func(x), second.Func(x)), from, to);
+        }
+
+        public static Function operator *(Function first, Function second)
+        {
+            var from = Math.Min(first.From, second.From);
+            var to = Math.Max(first.To, second.To);
+            return new Function($"({first.Name} и {second.Name})", (x) => Math.Min(first.Func(x), second.Func(x)), from, to);
+        }
+    }
+}
