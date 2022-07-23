@@ -54,7 +54,7 @@ namespace lab2
         }
 
         static Linear visitLow = new Linear("плохо посещал", 30, 40, 0, 100, true);
-        static Trapecidal visitNorm = new Trapecidal("нормально посещал", 30, 40, 70, 80, 0, 100);
+        static Trapeze visitNorm = new Trapeze("нормально посещал", 30, 40, 70, 80, 0, 100);
         static Linear visitGood = new Linear("хорошо посещал", 70, 80, 0, 100, false);
         Criteria visit = new Criteria(new Function[] {visitLow, visitNorm, visitGood});
         CriteriaResult visitResult;
@@ -65,13 +65,13 @@ namespace lab2
         CriteriaResult tasksResult;
 
         static Linear fewLabs = new Linear("мало защитил", 5, 6, 0, 12, true);
-        static Trapecidal normLabs = new Trapecidal("средне защитил", 5, 7, 11, 12, 0, 12);
+        static Trapeze normLabs = new Trapeze("средне защитил", 5, 7, 11, 12, 0, 12);
         static Linear allLabs = new Linear("всё защитил", 11, 12, 0, 12, false);
         Criteria labs = new Criteria(new Function[] {fewLabs, normLabs, allLabs});
         CriteriaResult labsResult;
 
         static Linear dontKnow = new Linear("не знает ничего", 35, 42, 0, 100, true);
-        static Trapecidal knowSchool = new Trapecidal("знает школьную программу", 35, 50, 80, 85, 0, 100);
+        static Trapeze knowSchool = new Trapeze("знает школьную программу", 35, 50, 80, 85, 0, 100);
         static Linear knowSaveliev = new Linear("знает по Савельеву", 80, 90, 0, 100, false);
         Criteria knowledge = new Criteria(new Function[] {dontKnow, knowSchool, knowSaveliev});
         CriteriaResult knowledgeResult;
@@ -82,8 +82,8 @@ namespace lab2
         CriteriaResult readingResult;
 
         static Linear twoMark = new Linear("иди на пересдачу", 20, 30, 0, 100, true);
-        static Trapecidal threeMark = new Trapecidal("получай 3", 25, 30, 50, 55, 0, 100);
-        static Trapecidal fourMark = new Trapecidal("ну ты даёшь.. 4", 50, 55, 80, 90, 0, 100);
+        static Trapeze threeMark = new Trapeze("получай 3", 25, 30, 50, 55, 0, 100);
+        static Trapeze fourMark = new Trapeze("ну ты даёшь.. 4", 50, 55, 80, 90, 0, 100);
         static Linear fiveMark = new Linear("... 5", 80, 90, 0, 100, false);
         Criteria mark = new Criteria(new Function[] {twoMark, threeMark, fourMark, fiveMark});
         CriteriaResult markResult;

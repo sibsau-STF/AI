@@ -57,7 +57,7 @@
     <Compile Include="Criteria.cs" />
     <Compile Include="Funcs\Linear.cs" />
     <Compile Include="Funcs\Logistic.cs" />
-    <Compile Include="Funcs\Trapecidal.cs" />
+    <Compile Include="Funcs\Trapeze.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

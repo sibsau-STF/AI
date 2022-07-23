@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace lab2.Funcs
 {
-    public class Trapecidal : Function
+    public class Trapeze : Function
     {
         private readonly double _a;
         private readonly double _b;
@@ -27,7 +27,7 @@ namespace lab2.Funcs
         /// <param name="x1">Начало множества определения функции</param>
         /// <param name="x2">Конец множества определения функции</param>
         /// <param name="inverse">Инверсия значений функции принадлежности</param>
-        public Trapecidal(string name, double a, double max1, double max2, double b, double x1, double x2, bool inverse = false) : base(name, x => 0, x1, x2)
+        public Trapeze(string name, double a, double max1, double max2, double b, double x1, double x2, bool inverse = false) : base(name, x => 0, x1, x2)
         {
             _a = a;
             _b = b;
@@ -56,9 +56,9 @@ namespace lab2.Funcs
                 return _side2.Calculate(x);
         }
 
-        public static Trapecidal operator -(Trapecidal first)
+        public static Trapeze operator -(Trapeze first)
         {
-            return new Trapecidal("не " + first.Name,
+            return new Trapeze("не " + first.Name,
                 first._a,
                 first._max1,
                 first._max2,
