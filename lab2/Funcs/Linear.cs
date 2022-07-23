@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace lab2.Funcs
+﻿namespace lab2.Funcs
 {
     public class Linear : Function
     {
@@ -12,12 +6,12 @@ namespace lab2.Funcs
         private readonly double _b;
         private readonly bool _inverse;
 
-        public Linear(string name, double a, double b, double x1, double x2, bool inverse) : base(name, x => 0, x1, x2)
+        public Linear(string name, double a, double b, double x1, double x2, bool inverse) : base(name, null!, x1, x2)
         {
             _a = a;
             _b = b;
             _inverse = inverse;
-            Func = this.Calculate;
+            Func = Calculate;
         }
 
         public override double Calculate(double x)

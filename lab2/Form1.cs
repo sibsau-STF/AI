@@ -1,57 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Function = lab2.Funcs.Function;
 using lab2.Funcs;
 
 namespace lab2
 {
-    public struct CriteriaResult
+    public record CriteriaResult(Function Func, double Value)
     {
-        public string Name;
-        public double Value;
-        public Function Func;
-
-        public CriteriaResult(Function func, double value)
-        {
-            Name = func.Name;
-            Value = value;
-            Func = func;
-        }
+        public string Name => Func.Name;
+        public Function Func { get; } = Func;
+        public double Value { get; } = Value;
     }
 
     public partial class Form1 : Form
     {
-        public double Visit
-        {
-            get { return 10 * (double) meetingBar.Value; }
-        }
+        public double Visit => 10 * (double) meetingBar.Value;
 
-        public double Tasks
-        {
-            get { return 10 * (double) exersizesBar.Value; }
-        }
+        public double Tasks => 10 * (double) exersizesBar.Value;
 
-        public double Labs
-        {
-            get { return (double) labNumeric.Value; }
-        }
+        public double Labs => (double) labNumeric.Value;
 
-        public double Knowledge
-        {
-            get { return 10 * (double) knowledgeBar.Value; }
-        }
+        public double Knowledge => 10 * (double) knowledgeBar.Value;
 
-        public double CanRead
-        {
-            get { return 10 * (double) canReadBar.Value; }
-        }
+        public double CanRead => 10 * (double) canReadBar.Value;
 
         static Linear visitLow = new Linear("плохо посещал", 30, 40, 0, 100, true);
         static Trapeze visitNorm = new Trapeze("нормально посещал", 30, 40, 70, 80, 0, 100);

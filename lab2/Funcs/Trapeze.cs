@@ -27,7 +27,7 @@ namespace lab2.Funcs
         /// <param name="x1">Начало множества определения функции</param>
         /// <param name="x2">Конец множества определения функции</param>
         /// <param name="inverse">Инверсия значений функции принадлежности</param>
-        public Trapeze(string name, double a, double max1, double max2, double b, double x1, double x2, bool inverse = false) : base(name, x => 0, x1, x2)
+        public Trapeze(string name, double a, double max1, double max2, double b, double x1, double x2, bool inverse = false) : base(name, null!, x1, x2)
         {
             _a = a;
             _b = b;

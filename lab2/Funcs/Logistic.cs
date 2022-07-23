@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Function = lab2.Funcs.Function;
 
 namespace lab2.Funcs
 {
@@ -13,12 +8,12 @@ namespace lab2.Funcs
         private readonly double _s;
         private readonly bool _inverse;
 
-        public Logistic(string name, double mu, double s, double x1, double x2, bool inverse) : base(name, x => 0, x1, x2)
+        public Logistic(string name, double mu, double s, double x1, double x2, bool inverse) : base(name, null!, x1, x2)
         {
             _mu = mu;
             _s = s;
             _inverse = inverse;
-            Func = this.Calculate;
+            Func = Calculate;
         }
 
         public override double Calculate(double x)
